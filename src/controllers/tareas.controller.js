@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import Tarea from '../models/tarea';
 
 export const obtenerTareas = async (req, res) => {
@@ -26,6 +27,12 @@ export const obtenerTarea = async (req, res) => {
 
 export const crearTarea = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(400).json({
+        errores: errors.array()
+      });
+    }
     const nuevaTarea = new Tarea(req.body);
     await nuevaTarea.save();
     res.status(201).json({

@@ -1,20 +1,23 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const tareaScheme = new Schema({
-  tarea: {
+  descripcion: {
     type: String,
     minLength: 5,
-    maxLength: 200,
+    maxLength: 100,
     required: true
   },
   fechaCreacion: {
     type: Date,
     default: Date.now
   },
-  estado: {
-    type: String,
-    enum: ['completo', 'pendiente'],
-    default: 'pendiente', // Valor por defecto: 'pendiente' al crear la tarea
+  pendiente: {
+    type: Boolean,
+    default: 'true', // Valor por defecto: 'pendiente' al crear la tarea
+  },
+  editando: {
+    type: Boolean,
+    default: 'false', // Valor por defecto: 'pendiente' al crear la tarea
   }
 })
 
